@@ -8,3 +8,7 @@ export const List = styled.ul`
     grid-row-gap: 32px;
 
 `
+
+export const ImgModal = styled.img`
+width: 700px;
+`

@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { List } from './ImageGallery.styled';
+import { List, ImgModal } from './ImageGallery.styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import Modal from '../Modal/Modal'
 Axios.defaults.baseURL = 'https://pixabay.com/api';
@@ -11,6 +11,7 @@ export default class ImageGallery extends React.Component {
     isLoading: false,
     error: null,
     showModal: false,
+    larg:''
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -24,10 +25,14 @@ export default class ImageGallery extends React.Component {
     }
   }
 
-  toggleModal = () => {
-  this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+  toggleModal = largeImage => {
+  this.setState(({ showModal}) => ({
+    showModal: !showModal,
+  }));
+   
+    this.setState({ larg: largeImage })
+    console.log(this.state.larg)
+    
   };
 
 
@@ -39,17 +44,20 @@ export default class ImageGallery extends React.Component {
 
       
         {articles.length > 0
-          ? articles.map(({ id, webformatURL }) => (
+          ? articles.map(({ id, largeImageURL, webformatURL }) => (
             <ImageGalleryItem
               onClick={this.toggleModal}
               key={id}
-              webformatURL={webformatURL} />
+              webformatURL={webformatURL}
+              largeImage={largeImageURL}
+              />
             ))
           : null}
         {this.state.showModal && (
           <Modal
+            largeImageURL={this.props.largeImageURL}
             onClose={this.toggleModal}>
-            <img src='https://pixabay.com/get/g0480996272bcb1bcead3ae3fea541e96c40a410c8805d01e6e11fcbbb9f585e9820f3d5de0ec56bbfcf0169054753ad4bb7a96d6d7d2c7f79c54cff5629354da_1280.jpg'  alt=''/>
+            <ImgModal src={this.state.larg}  alt=''/>
           </Modal>
         )}
 
