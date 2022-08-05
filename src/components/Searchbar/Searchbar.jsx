@@ -1,21 +1,21 @@
 import React from 'react';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import {Form, Input, Button} from './Searchbar.stayled'
+import { Form, Input, Button } from './Searchbar.stayled';
 
 export default class Searchbar extends React.Component {
   state = {
     name: '',
   };
 
-     static propTypes = {
+  static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
-    handleInputChange = event => {
+  handleInputChange = event => {
     //   console.log(event.currentTarget.value)
     // const { value } = event.currentTarget;
     this.setState({
-      name: event.currentTarget.value.toLowerCase()
+      name: event.currentTarget.value.toLowerCase(),
     });
   };
 
@@ -24,23 +24,21 @@ export default class Searchbar extends React.Component {
   };
 
   handelSubmit = event => {
-      event.preventDefault();
-      if (this.state.name.trim() === '') {
-          toast("Enter something")
-          return
-      }
-    this.props.onSubmit(this.state.name );
+    event.preventDefault();
+    if (this.state.name.trim() === '') {
+      toast('Enter something');
+      return;
+    }
+    this.props.onSubmit(this.state.name);
     this.reset();
-    event.target.reset()
-    };
-    
+    event.target.reset();
+  };
 
   render() {
     return (
-      <header >
-        <Form  onSubmit={this.handelSubmit}>
+      <header>
+        <Form onSubmit={this.handelSubmit}>
           <Input
-            
             type="text"
             autoComplete="off"
             autoFocus
