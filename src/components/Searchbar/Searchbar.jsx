@@ -1,7 +1,7 @@
 import React from 'react';
 import {  toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import {Form, Input} from './Searchbar.stayled'
+import {Form, Input, Button} from './Searchbar.stayled'
 
 export default class Searchbar extends React.Component {
   state = {
@@ -31,6 +31,7 @@ export default class Searchbar extends React.Component {
       }
     this.props.onSubmit(this.state.name );
     this.reset();
+    event.target.reset()
     };
     
 
@@ -46,9 +47,9 @@ export default class Searchbar extends React.Component {
             onChange={this.handleInputChange}
             placeholder="Search images and photos"
           />
-          <button type="submit">
+          <Button type="submit">
             <span>Search</span>
-          </button>
+          </Button>
         </Form>
       </header>
     );

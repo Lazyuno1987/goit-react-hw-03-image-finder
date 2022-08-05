@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { List, ImgModal } from './ImageGallery.styled';
+import { List, ImgModal, Button } from './ImageGallery.styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import Modal from '../Modal/Modal'
 Axios.defaults.baseURL = 'https://pixabay.com/api';
@@ -11,18 +11,24 @@ export default class ImageGallery extends React.Component {
     isLoading: false,
     error: null,
     showModal: false,
-    larg:''
+    larg: '',
+    page: 1,
+    
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
+    if (prevProps !== this.props || prevState.page !== this.state.page ) {
       console.log(prevProps.name);
       console.log(this.props.name);
       const response = await Axios.get(
-        `/?q=${this.props.name}&page=1&key=28074243-fd9335165c63977f864a46342&image_type=photo&orientation=horizontal&per_page=12`
+        `/?q=${this.props.name}&page=${this.state.page}&key=28074243-fd9335165c63977f864a46342&image_type=photo&orientation=horizontal&per_page=12`
       );
       this.setState({ articles: response.data.hits });
     }
+    if (prevProps.name !== this.props.name) {
+      this.setState({ page: 1 })
+   }
+
   }
 
   toggleModal = largeImage => {
@@ -35,15 +41,20 @@ export default class ImageGallery extends React.Component {
     
   };
 
+  loadMore = () => {
+    
+    this.setState(prevState => ({
+     page: prevState.page + 1
+   }))
+  }
 
   render() {
     const { articles } = this.state;
     console.log(articles)
     return (
+      <>
       <List>
-
-      
-        {articles.length > 0
+ {articles.length > 0
           ? articles.map(({ id, largeImageURL, webformatURL }) => (
             <ImageGalleryItem
               onClick={this.toggleModal}
@@ -53,6 +64,7 @@ export default class ImageGallery extends React.Component {
               />
             ))
           : null}
+      
         {this.state.showModal && (
           <Modal
             largeImageURL={this.props.largeImageURL}
@@ -62,6 +74,8 @@ export default class ImageGallery extends React.Component {
         )}
 
       </List>
+        <Button onClick={this.loadMore} type='button'>Load More</Button>
+      </>
     );
   }
 }

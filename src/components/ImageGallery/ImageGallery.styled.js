@@ -13,3 +13,16 @@ export const List = styled.ul`
 export const ImgModal = styled.img`
 width: 700px;
 `
+
+export const Button = styled.button`
+width: 100px;
+padding: 5px;
+background-color: blue;
+color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0 auto;
+cursor: pointer;
+
+`
