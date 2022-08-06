@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import { toast } from 'react-toastify';
 import { Loader } from '../Loader/Loader';
 import { Button } from '../Button/Button';
 import { List, ImgModal } from './ImageGallery.styled';
@@ -39,6 +40,9 @@ export default class ImageGallery extends React.Component {
       if (prevProps.name !== this.props.name) {
         this.setState(() => ({ page: 1, articles: response.data.hits }));
       }
+    } if (this.state.articles.length === 0) {
+      console.log('sdcsdc')
+       toast.error('Enter something correct');
     }
   }
 

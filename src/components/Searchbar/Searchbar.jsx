@@ -28,7 +28,7 @@ export default class Searchbar extends React.Component {
     if (this.state.name.trim() === '') {
       toast('Enter something');
       return;
-    }
+    } 
     this.props.onSubmit(this.state.name);
     this.reset();
     event.target.reset();
