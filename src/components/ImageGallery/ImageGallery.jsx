@@ -23,6 +23,8 @@ export default class ImageGallery extends React.Component {
   static propTypes = { name: PropTypes.string.isRequired };
 
   async componentDidUpdate(prevProps, prevState) {
+  
+   
     if (
       prevProps.name !== this.props.name ||
       prevState.page !== this.state.page
@@ -39,11 +41,12 @@ export default class ImageGallery extends React.Component {
 
       if (prevProps.name !== this.props.name) {
         this.setState(() => ({ page: 1, articles: response.data.hits }));
-      }
-    } if (this.state.articles.length === 0) {
+      } if (response.data.hits.length === 0) {
       console.log('sdcsdc')
        toast.error('Enter something correct');
     }
+    } 
+
   }
 
   toggleModal = largeImage => {
