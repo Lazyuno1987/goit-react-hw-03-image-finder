@@ -6,9 +6,8 @@ import { createPortal } from 'react-dom';
 const modalRoot = document.querySelector('#modal-root');
 
 export default class Modal extends Component {
-
   static propTypes = {
-    onClick: PropTypes.func.isRequired
+    largImage: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
@@ -34,7 +33,9 @@ export default class Modal extends Component {
   render() {
     return createPortal(
       <ModalBack onClick={this.handleBackdropClick}>
-        <ModalContent>{this.props.children}</ModalContent>
+        <ModalContent>
+          <img src={this.props.largImage} alt="" />
+        </ModalContent>
       </ModalBack>,
       modalRoot
     );

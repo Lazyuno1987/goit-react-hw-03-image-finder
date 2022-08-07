@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export const Button = ({ onClick }) => {
   return (
     <ButtonLoad type="button" onClick={onClick}>
-      {' '}
+     
       Load More
     </ButtonLoad>
   );

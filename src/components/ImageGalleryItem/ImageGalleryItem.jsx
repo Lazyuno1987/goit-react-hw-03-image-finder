@@ -1,12 +1,10 @@
 import { Img } from './ImageGalleryItem.styled';
 import PropTypes from 'prop-types';
-export const ImageGalleryItem = ({ onClick, largeImage, webformatURL }) => {
+export const ImageGalleryItem = ({ largeImage, webformatURL, toggleModal }) => {
   return (
     <li>
       <Img
-        onClick={() => {
-          onClick(largeImage);
-        }}
+        onClick={() => toggleModal(largeImage)}
         src={webformatURL}
         alt="pict"
       />
@@ -17,5 +15,5 @@ export const ImageGalleryItem = ({ onClick, largeImage, webformatURL }) => {
 ImageGalleryItem.propTypes = {
   webformatURL: PropTypes.string.isRequired,
   largeImage: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };

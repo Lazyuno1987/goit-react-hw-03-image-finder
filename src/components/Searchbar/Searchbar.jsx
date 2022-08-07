@@ -12,8 +12,6 @@ export default class Searchbar extends React.Component {
     onSubmit: PropTypes.func.isRequired,
   };
   handleInputChange = event => {
-    //   console.log(event.currentTarget.value)
-    // const { value } = event.currentTarget;
     this.setState({
       name: event.currentTarget.value.toLowerCase(),
     });
@@ -28,7 +26,7 @@ export default class Searchbar extends React.Component {
     if (this.state.name.trim() === '') {
       toast('Enter something');
       return;
-    } 
+    }
     this.props.onSubmit(this.state.name);
     this.reset();
     event.target.reset();

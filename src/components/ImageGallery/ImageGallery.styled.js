@@ -9,6 +9,6 @@ export const List = styled.ul`
   padding: 0 15px;
 `;
 
-export const ImgModal = styled.img`
-  width: 700px;
-`;
+// export const ImgModal = styled.img`
+//   width: 700px;
+// `;
