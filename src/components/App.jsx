@@ -26,28 +26,30 @@ class App extends React.Component {
 
   async componentDidUpdate(prevProps, prevState) {
     if (
-      prevState.nameInput !== this.state.nameInput ||
-      prevState.page !== this.state.page
+      prevState.nameInput !== this.state.nameInput
+      || prevState.page !== this.state.page
     ) {
       this.setState({ status: 'pending' });
-      const response = await Axios.get(
-        `/?q=${this.state.nameInput}&page=${this.state.page}&key=28074243-fd9335165c63977f864a46342&image_type=photo&orientation=horizontal&per_page=12`
-      );
-      this.setState(prevState => ({
-        articles: [...prevState.articles, ...mapperImages(response.data.hits)],
-        status: 'resolved',
-      }));
-      if (
-        prevState.nameInput !== '' &&
-        prevState.nameInput !== this.state.nameInput
-      ) {
-        this.setState(() => ({
-          page: 1,
-          articles: [],
-        }));
+      if (prevState.nameInput !== this.state.nameInput) {
+       this.resetPage();
       }
-      if (response.data.hits.length === 0) {
-        toast.error('Enter something correct');
+      try {
+        const response = await Axios.get(
+          `/?q=${this.state.nameInput}&page=${this.state.page}&key=28074243-fd9335165c63977f864a46342&image_type=photo&orientation=horizontal&per_page=12`
+        );
+        this.setState(prevState => ({
+          articles: [...prevState.articles, ...mapperImages(response.data.hits)],
+          status: 'resolved',
+        })
+        );
+        if (response.data.hits.length === 0) {
+          toast.error('Enter something correct');
+          this.setState({ status: 'rejected' });
+        }
+     
+      } catch (error) {
+        toast.error('Все пропало!', { position: "top-center", });
+        this.setState({ status: 'rejected' });
       }
     }
   }
@@ -69,9 +71,15 @@ class App extends React.Component {
       page: prevState.page + 1,
     }));
   };
+    resetPage() {
+    this.setState({
+      page: 1,
+    });
+  }
 
   onSubmitForm = name => {
     this.setState(() => ({ nameInput: name, articles: [] }));
+    this.resetPage();
   };
 
   render() {
