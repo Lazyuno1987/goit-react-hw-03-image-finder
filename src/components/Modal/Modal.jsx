@@ -34,7 +34,7 @@ export default class Modal extends Component {
     return createPortal(
       <ModalBack onClick={this.handleBackdropClick}>
         <ModalContent>
-          <img src={this.props.largImage} alt="" />
+          <img width={700} src={this.props.largImage} alt="" />
         </ModalContent>
       </ModalBack>,
       modalRoot
